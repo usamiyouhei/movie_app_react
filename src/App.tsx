@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./App.css";
 
 function App() {
@@ -43,16 +44,23 @@ function App() {
         "スティーブン・スピルバーグとロバート・ゼメキスが贈るSFアドベンチャーシリーズ第1弾。高校生のマーティは、科学者・ドクの発明したタイムマシン・デロリアンで過去にタイムスリップしてしまう。",
     },
   ];
+
+  const [keyword, setKeyword] = useState("");
+
   return (
     <div>
-      <input type="text" />
-      {defaultMovieList.map((movie) => (
-        <div key={movie.id}>
-          <h2>{movie.name}</h2>
-          <img src={movie.image} />
-          <p>{movie.overview}</p>
-        </div>
-      ))}
+      <div>{keyword}</div>
+      <input type="text" onChange={(e) => setKeyword(e.target.value)} />
+      {/* <button onClick={() => alert("hello")}>click</button> */}
+      {defaultMovieList
+        .filter((movie) => movie.name.includes(keyword))
+        .map((movie) => (
+          <div key={movie.id}>
+            <h2>{movie.name}</h2>
+            <img src={movie.image} />
+            <p>{movie.overview}</p>
+          </div>
+        ))}
       {/* <p>{defaultMovieList[0].name}</p>
       <img src={defaultMovieList[0].image} alt="" />
       <p>{defaultMovieList[0].overview}</p> */}
